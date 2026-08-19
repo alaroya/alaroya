@@ -1,0 +1,2500 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="description"
+    content="Alaroya — общайтесь без интернета."
+  >
+
+  <title>Alaroya</title>
+
+  <style>
+    :root {
+      --bg: #050505;
+      --text: #f5f5f5;
+      --muted: #858585;
+      --line: rgba(255,255,255,.11);
+
+      --green: #b9e66f;
+      --green-bright: #d7ff36;
+      --green-soft: rgba(185,230,111,.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    ::selection {
+      background: var(--green-bright);
+      color: #050505;
+    }
+
+    ::-moz-selection {
+      background: var(--green-bright);
+      color: #050505;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 18px;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1160px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    header {
+      height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .logo {
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: 4px;
+    }
+
+    nav {
+      display: flex;
+      gap: 30px;
+    }
+
+    nav a {
+      color: #777;
+      font-size: 14px;
+      transition: color .2s ease;
+    }
+
+    nav a:hover {
+      color: white;
+    }
+
+    .hero {
+      padding: 120px 0 90px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      margin-bottom: 24px;
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(58px, 9vw, 112px);
+      line-height: .92;
+      letter-spacing: -6px;
+      font-weight: 800;
+    }
+
+    .hero-text {
+      max-width: 650px;
+      margin: 32px auto 36px;
+      color: var(--muted);
+      font-size: 21px;
+      line-height: 1.55;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 56px;
+      padding: 0 30px;
+      border-radius: 12px;
+      background: white;
+      color: black;
+      font-size: 16px;
+      font-weight: 700;
+      transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 45px rgba(255,255,255,.12);
+    }
+
+    .download-note {
+      margin-top: 12px;
+      color: #555;
+      font-size: 12px;
+      letter-spacing: .5px;
+    }
+
+    .network {
+      position: relative;
+      height: 520px;
+      margin-top: 80px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background:
+        radial-gradient(
+          circle at 50% 50%,
+          rgba(185,230,111,.06),
+          transparent 35%
+        ),
+        #080808;
+    }
+
+    .network::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+
+      background:
+        linear-gradient(
+          rgba(185,230,111,.025) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(185,230,111,.025) 1px,
+          transparent 1px
+        );
+
+      background-size: 55px 55px;
+
+      mask-image: linear-gradient(
+        to bottom,
+        transparent,
+        black 15%,
+        black 85%,
+        transparent
+      );
+    }
+
+    .network-label {
+      position: absolute;
+      top: 25px;
+      left: 27px;
+
+      color: #666;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+
+      z-index: 10;
+    }
+
+    .connections {
+      position: absolute;
+      inset: 0;
+
+      width: 100%;
+      height: 100%;
+
+      z-index: 2;
+      pointer-events: none;
+
+      overflow: visible;
+    }
+
+    .connection-glow {
+      fill: none;
+
+      stroke: rgba(185,230,111,.12);
+      stroke-width: 9;
+
+      stroke-linecap: round;
+
+      filter: blur(7px);
+    }
+
+    .connection-line {
+      fill: none;
+
+      stroke: rgba(185,230,111,.85);
+      stroke-width: 1.5;
+
+      stroke-linecap: round;
+
+      stroke-dasharray: 5 11;
+
+      filter:
+        drop-shadow(0 0 4px rgba(185,230,111,.9))
+        drop-shadow(0 0 12px rgba(185,230,111,.35));
+
+      stroke-dashoffset: 0;
+    }
+
+    .phone {
+      position: absolute;
+
+      width: 92px;
+      height: 170px;
+
+      border: 1.5px solid #555;
+      border-radius: 21px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #151515,
+          #070707
+        );
+
+      box-shadow:
+        0 20px 60px rgba(0,0,0,.6),
+        inset 0 0 20px rgba(255,255,255,.025);
+
+      z-index: 5;
+    }
+
+    .phone::before {
+      content: "";
+
+      position: absolute;
+      inset: 11px;
+
+      border: 1px solid #292929;
+      border-radius: 13px;
+    }
+
+    .phone::after {
+      content: "";
+
+      position: absolute;
+
+      left: 50%;
+      bottom: 8px;
+
+      width: 5px;
+      height: 5px;
+
+      transform: translateX(-50%);
+
+      border-radius: 50%;
+
+      background: #444;
+    }
+
+    .phone.left {
+      left: calc(28% - 46px);
+      top: calc(50% - 85px);
+    }
+
+    .phone.right {
+      left: calc(72% - 46px);
+      top: calc(50% - 85px);
+    }
+
+    .phone.bottom {
+      left: calc(50% - 46px);
+      top: calc(76% - 85px);
+    }
+
+    .phone-screen {
+      position: absolute;
+
+      z-index: 3;
+
+      top: 42px;
+      left: 25px;
+      right: 25px;
+
+      height: 4px;
+
+      border-radius: 10px;
+
+      background: #303030;
+    }
+
+    .phone-screen.small {
+      top: 58px;
+
+      width: 25px;
+      right: auto;
+    }
+
+    .phone-screen.small.two {
+      top: 70px;
+      width: 34px;
+    }
+
+    section.content {
+      padding: 150px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .label {
+      margin-bottom: 24px;
+
+      color: #555;
+
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      max-width: 850px;
+
+      margin: 0;
+
+      font-size: clamp(44px, 6vw, 76px);
+      line-height: .98;
+
+      letter-spacing: -4px;
+    }
+
+    .lead {
+      max-width: 680px;
+
+      margin-top: 34px;
+
+      color: var(--muted);
+
+      font-size: 21px;
+      line-height: 1.65;
+    }
+
+    #features {
+      padding: 0;
+      text-align: left;
+    }
+
+    #features .features-intro {
+      padding: 150px 0;
+    }
+
+    #features .label {
+      margin-bottom: 24px;
+    }
+
+    #features h2 {
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .green-text {
+      color: var(--green);
+    }
+
+    .feature {
+      display: grid;
+
+      grid-template-columns: 1fr 1fr;
+
+      gap: 80px;
+
+      align-items: center;
+
+      padding: 90px 0;
+
+      border-top: 1px solid var(--line);
+
+      text-align: left;
+    }
+
+    .feature.reverse .feature-text {
+      order: 2;
+    }
+
+    .feature.reverse .visual {
+      order: 1;
+    }
+
+    .feature h3 {
+      margin: 0 0 20px;
+
+      font-size: 34px;
+      letter-spacing: -1.5px;
+    }
+
+    .feature p {
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 18px;
+      line-height: 1.65;
+    }
+
+    .visual {
+      position: relative;
+
+      min-height: 330px;
+
+      border: 1px solid var(--line);
+      border-radius: 24px;
+
+      background: #090909;
+
+      overflow: hidden;
+    }
+
+    .visual::before {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      background:
+        radial-gradient(
+          circle at center,
+          rgba(185,230,111,.045),
+          transparent 55%
+        );
+    }
+
+    .chat-visual {
+      background:
+        radial-gradient(
+          circle at 50% 45%,
+          rgba(185,230,111,.045),
+          transparent 45%
+        ),
+        #080808;
+    }
+
+    .chat-visual::after {
+      content: "";
+
+      position: absolute;
+
+      inset: 0;
+
+      background:
+        linear-gradient(
+          rgba(185,230,111,.022) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(185,230,111,.022) 1px,
+          transparent 1px
+        );
+
+      background-size: 32px 32px;
+
+      mask-image: linear-gradient(
+        to bottom,
+        transparent,
+        black 20%,
+        black 80%,
+        transparent
+      );
+    }
+
+    .chat-header {
+      position: absolute;
+
+      top: 22px;
+      left: 24px;
+      right: 24px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding-bottom: 14px;
+
+      border-bottom: 1px solid rgba(185,230,111,.13);
+
+      z-index: 3;
+    }
+
+    .chat-user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .chat-status {
+      width: 7px;
+      height: 7px;
+
+      border-radius: 50%;
+
+      background: var(--green);
+
+      box-shadow:
+        0 0 6px var(--green),
+        0 0 13px rgba(185,230,111,.65);
+
+      animation: statusPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes statusPulse {
+      0%, 100% {
+        opacity: .45;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    .chat-message {
+      position: absolute;
+
+      max-width: 65%;
+
+      padding: 12px 15px;
+
+      border: 1px solid rgba(185,230,111,.16);
+      border-radius: 12px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(185,230,111,.075),
+          rgba(185,230,111,.025)
+        );
+
+      color: #ddd;
+
+      font-size: 13px;
+      line-height: 1.4;
+
+      box-shadow:
+        0 0 18px rgba(185,230,111,.035);
+
+      z-index: 3;
+    }
+
+    .chat-message::after {
+      content: "";
+
+      position: absolute;
+
+      width: 4px;
+      height: 4px;
+
+      border-radius: 50%;
+
+      background: var(--green);
+
+      box-shadow:
+        0 0 6px var(--green);
+
+      opacity: .8;
+    }
+
+    .chat-message.left {
+      top: 105px;
+      left: 25px;
+    }
+
+    .chat-message.left::after {
+      right: -3px;
+      bottom: 8px;
+    }
+
+    .chat-message.right {
+      top: 157px;
+      right: 25px;
+
+      border-color: rgba(255,255,255,.12);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.065),
+          rgba(255,255,255,.025)
+        );
+    }
+
+    .chat-message.right::after {
+      left: -3px;
+      bottom: 8px;
+    }
+
+    .chat-message.left.bottom {
+      top: auto;
+      bottom: 52px;
+      left: 48px;
+    }
+
+    .chat-signal {
+      position: absolute;
+
+      left: 50%;
+      top: 50%;
+
+      width: 90px;
+      height: 90px;
+
+      transform: translate(-50%, -50%);
+
+      border: 1px solid rgba(185,230,111,.08);
+      border-radius: 50%;
+
+      opacity: .7;
+
+      z-index: 1;
+    }
+
+    .chat-signal::before,
+    .chat-signal::after {
+      content: "";
+
+      position: absolute;
+
+      left: 50%;
+      top: 50%;
+
+      transform: translate(-50%, -50%);
+
+      border: 1px solid rgba(185,230,111,.07);
+
+      border-radius: 50%;
+    }
+
+    .chat-signal::before {
+      width: 55px;
+      height: 55px;
+    }
+
+    .chat-signal::after {
+      width: 20px;
+      height: 20px;
+
+      background: rgba(185,230,111,.05);
+
+      box-shadow:
+        0 0 20px rgba(185,230,111,.12);
+    }
+
+    .file {
+      position: absolute;
+
+      left: 50%;
+      top: 50%;
+
+      width: 190px;
+      height: 120px;
+
+      transform: translate(-50%, -50%);
+
+      border: 1px solid rgba(185,230,111,.25);
+
+      border-radius: 16px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #151515,
+          #090909
+        );
+
+      box-shadow:
+        0 0 30px rgba(185,230,111,.06);
+    }
+
+    .file::before {
+      content: "ФОТО";
+
+      position: absolute;
+
+      top: 25px;
+      left: 25px;
+
+      color: #777;
+
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+
+    .file::after {
+      content: "→";
+
+      position: absolute;
+
+      right: 25px;
+      bottom: 20px;
+
+      color: var(--green);
+
+      font-size: 25px;
+
+      text-shadow:
+        0 0 15px rgba(185,230,111,.6);
+    }
+
+    .qr-frame {
+      position: absolute;
+
+      left: 50%;
+      top: 50%;
+
+      width: 210px;
+      height: 210px;
+
+      transform: translate(-50%, -50%);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(185,230,111,.09),
+          transparent 65%
+        );
+
+      border: 1px solid rgba(185,230,111,.18);
+
+      box-shadow:
+        0 0 30px rgba(185,230,111,.07),
+        inset 0 0 35px rgba(185,230,111,.025);
+
+      z-index: 2;
+    }
+
+    .qr-frame::before,
+    .qr-frame::after {
+      content: "";
+
+      position: absolute;
+
+      width: 28px;
+      height: 28px;
+
+      border-color: var(--green);
+      border-style: solid;
+
+      filter:
+        drop-shadow(0 0 5px rgba(185,230,111,.8))
+        drop-shadow(0 0 12px rgba(185,230,111,.3));
+    }
+
+    .qr-frame::before {
+      top: -1px;
+      left: -1px;
+
+      border-width: 2px 0 0 2px;
+    }
+
+    .qr-frame::after {
+      right: -1px;
+      bottom: -1px;
+
+      border-width: 0 2px 2px 0;
+    }
+
+    .qr-art {
+      position: relative;
+
+      width: 148px;
+      height: 148px;
+
+      display: grid;
+
+      grid-template-columns: repeat(13, 1fr);
+      grid-template-rows: repeat(13, 1fr);
+
+      gap: 3px;
+
+      padding: 8px;
+
+      background:
+        rgba(185,230,111,.015);
+
+      box-shadow:
+        0 0 22px rgba(185,230,111,.12),
+        inset 0 0 25px rgba(185,230,111,.035);
+
+      overflow: hidden;
+    }
+
+    .qr-art::before {
+      content: "";
+
+      position: absolute;
+
+      left: 0;
+      right: 0;
+      top: -45%;
+
+      height: 45%;
+
+      background:
+        linear-gradient(
+          to bottom,
+          transparent 0%,
+          rgba(185,230,111,.02) 20%,
+          rgba(185,230,111,.18) 50%,
+          rgba(185,230,111,.02) 80%,
+          transparent 100%
+        );
+
+      box-shadow:
+        0 0 18px rgba(185,230,111,.12),
+        0 0 35px rgba(185,230,111,.06);
+
+      animation: qrScan 2.8s linear infinite;
+
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    @keyframes qrScan {
+      0% {
+        transform: translateY(0);
+      }
+
+      100% {
+        transform: translateY(322%);
+      }
+    }
+
+    .qr-cell {
+      background: rgba(185,230,111,.82);
+
+      box-shadow:
+        0 0 4px rgba(185,230,111,.35);
+
+      opacity: .85;
+    }
+
+    .qr-cell.dim {
+      opacity: .28;
+    }
+
+    .qr-cell.bright {
+      opacity: 1;
+
+      box-shadow:
+        0 0 6px rgba(185,230,111,.75),
+        0 0 12px rgba(185,230,111,.25);
+    }
+
+    .qr-finder {
+      position: absolute;
+
+      width: 32px;
+      height: 32px;
+
+      border: 3px solid var(--green);
+
+      box-shadow:
+        0 0 7px rgba(185,230,111,.7),
+        inset 0 0 7px rgba(185,230,111,.3);
+    }
+
+    .qr-finder::after {
+      content: "";
+
+      position: absolute;
+
+      left: 50%;
+      top: 50%;
+
+      width: 9px;
+      height: 9px;
+
+      transform: translate(-50%, -50%);
+
+      background: var(--green);
+
+      box-shadow:
+        0 0 8px rgba(185,230,111,.9);
+    }
+
+    .qr-finder.one {
+      top: 7px;
+      left: 7px;
+    }
+
+    .qr-finder.two {
+      top: 7px;
+      right: 7px;
+    }
+
+    .qr-finder.three {
+      bottom: 7px;
+      left: 7px;
+    }
+
+    .qr-corner {
+      position: absolute;
+
+      width: 13px;
+      height: 13px;
+
+      border-color: rgba(185,230,111,.8);
+      border-style: solid;
+
+      filter:
+        drop-shadow(0 0 5px rgba(185,230,111,.7));
+    }
+
+    .qr-corner.one {
+      top: -1px;
+      right: -1px;
+
+      border-width: 1px 1px 0 0;
+    }
+
+    .qr-corner.two {
+      bottom: -1px;
+      right: -1px;
+
+      border-width: 0 1px 1px 0;
+    }
+
+    .qr-corner.three {
+      bottom: -1px;
+      left: -1px;
+
+      border-width: 0 0 1px 1px;
+    }
+
+    .security-section {
+      padding: 150px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .security-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 50px;
+      margin-bottom: 65px;
+    }
+
+    .security-head h2 {
+      max-width: 720px;
+    }
+
+    .security-status {
+      flex: 0 0 auto;
+
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+
+      padding: 10px 14px;
+
+      border: 1px solid rgba(185,230,111,.18);
+      border-radius: 999px;
+
+      color: var(--green);
+
+      background: rgba(185,230,111,.045);
+
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .5px;
+
+      white-space: nowrap;
+    }
+
+    .security-status::before {
+      content: "";
+
+      width: 6px;
+      height: 6px;
+
+      border-radius: 50%;
+
+      background: var(--green);
+
+      box-shadow:
+        0 0 7px var(--green);
+    }
+
+    .security-grid {
+      display: grid;
+
+      grid-template-columns: repeat(2, 1fr);
+
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .security-item {
+      position: relative;
+
+      min-height: 190px;
+
+      padding: 34px 36px;
+
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+
+      background:
+        radial-gradient(
+          circle at 90% 10%,
+          rgba(185,230,111,.035),
+          transparent 38%
+        ),
+        #080808;
+
+      transition:
+        background .25s ease,
+        border-color .25s ease;
+    }
+
+    .security-item:hover {
+      background:
+        radial-gradient(
+          circle at 90% 10%,
+          rgba(185,230,111,.065),
+          transparent 42%
+        ),
+        #0a0a0a;
+    }
+
+    .security-number {
+      display: block;
+
+      margin-bottom: 28px;
+
+      color: #454545;
+
+      font-size: 11px;
+      letter-spacing: 2px;
+    }
+
+    .security-item h3 {
+      margin: 0 0 10px;
+
+      font-size: 21px;
+      letter-spacing: -.5px;
+    }
+
+    .security-item p {
+      max-width: 460px;
+
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .security-item strong {
+      color: #ddd;
+      font-weight: 600;
+    }
+
+    .final {
+      padding: 180px 0;
+
+      text-align: center;
+
+      border-top: 1px solid var(--line);
+    }
+
+    .final h2 {
+      margin: 0 auto;
+    }
+
+    .final p {
+      max-width: 580px;
+
+      margin: 30px auto 35px;
+
+      color: var(--muted);
+
+      font-size: 20px;
+      line-height: 1.6;
+    }
+
+    footer {
+      min-height: 110px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      border-top: 1px solid var(--line);
+
+      color: #555;
+
+      font-size: 13px;
+    }
+
+    .footer-logo {
+      color: #aaa;
+
+      font-weight: 800;
+
+      letter-spacing: 4px;
+    }
+
+    @media (max-width: 800px) {
+
+      .container {
+        width: min(100% - 28px, 1160px);
+      }
+
+      nav {
+        display: none;
+      }
+
+      header {
+        justify-content: center;
+      }
+
+      .hero {
+        padding: 80px 0 60px;
+      }
+
+      h1 {
+        letter-spacing: -4px;
+      }
+
+      .hero-text {
+        font-size: 18px;
+      }
+
+      .network {
+        height: 430px;
+        margin-top: 60px;
+        border-radius: 22px;
+      }
+
+      .phone {
+        width: 65px;
+        height: 125px;
+        border-radius: 16px;
+      }
+
+      .phone.left {
+        left: calc(24% - 32px);
+      }
+
+      .phone.right {
+        left: calc(76% - 32px);
+      }
+
+      .phone.bottom {
+        left: calc(50% - 32px);
+        top: calc(78% - 62px);
+      }
+
+      .phone::before {
+        inset: 8px;
+        border-radius: 10px;
+      }
+
+      .phone::after {
+        bottom: 6px;
+        width: 4px;
+        height: 4px;
+      }
+
+      .phone-screen {
+        top: 32px;
+        left: 17px;
+        right: 17px;
+        height: 3px;
+      }
+
+      .phone-screen.small {
+        top: 45px;
+        width: 19px;
+      }
+
+      .phone-screen.small.two {
+        top: 55px;
+        width: 26px;
+      }
+
+      section.content {
+        padding: 100px 0;
+      }
+
+      #features {
+        padding: 0;
+      }
+
+      #features .features-intro {
+        padding: 100px 0;
+      }
+
+      h2 {
+        letter-spacing: -2.5px;
+      }
+
+      .lead {
+        font-size: 18px;
+      }
+
+      .feature {
+        grid-template-columns: 1fr;
+        gap: 35px;
+        padding: 70px 0;
+      }
+
+      .feature.reverse .feature-text,
+      .feature.reverse .visual {
+        order: initial;
+      }
+
+      .feature h3 {
+        font-size: 30px;
+      }
+
+      .visual {
+        min-height: 280px;
+      }
+
+      .chat-message {
+        max-width: 68%;
+      }
+
+      .security-section {
+        padding: 100px 0;
+      }
+
+      .security-head {
+        display: block;
+        margin-bottom: 45px;
+      }
+
+      .security-status {
+        margin-top: 28px;
+      }
+
+      .security-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .security-item {
+        min-height: auto;
+        padding: 30px;
+      }
+
+      .final {
+        padding: 120px 0;
+      }
+
+      footer {
+        flex-direction: column;
+        justify-content: center;
+        gap: 15px;
+        padding: 30px 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+
+      body {
+        font-size: 16px;
+      }
+
+      h1 {
+        font-size: 55px;
+      }
+
+      .hero-text {
+        margin-top: 26px;
+        margin-bottom: 30px;
+      }
+
+      .button {
+        width: 100%;
+        min-height: 54px;
+      }
+
+      .download-note {
+        font-size: 11px;
+      }
+
+      .network {
+        height: 380px;
+        margin-top: 50px;
+      }
+
+      .network-label {
+        top: 20px;
+        left: 20px;
+        font-size: 10px;
+        letter-spacing: 1.2px;
+      }
+
+      .phone {
+        width: 58px;
+        height: 110px;
+      }
+
+      .phone.left {
+        left: calc(23% - 29px);
+      }
+
+      .phone.right {
+        left: calc(77% - 29px);
+      }
+
+      .phone.bottom {
+        left: calc(50% - 29px);
+        top: calc(78% - 55px);
+      }
+
+      .phone::before {
+        inset: 7px;
+      }
+
+      .phone-screen {
+        top: 28px;
+        left: 15px;
+        right: 15px;
+        height: 3px;
+      }
+
+      .phone-screen.small {
+        top: 39px;
+        width: 17px;
+      }
+
+      .phone-screen.small.two {
+        top: 48px;
+        width: 23px;
+      }
+
+      .chat-message.left {
+        left: 18px;
+      }
+
+      .chat-message.right {
+        right: 18px;
+      }
+
+      .chat-message.left.bottom {
+        left: 30px;
+      }
+
+      .qr-frame {
+        width: 185px;
+        height: 185px;
+      }
+
+      .qr-art {
+        width: 132px;
+        height: 132px;
+        gap: 2px;
+        padding: 7px;
+      }
+
+      .qr-finder {
+        width: 28px;
+        height: 28px;
+      }
+
+      .qr-finder::after {
+        width: 8px;
+        height: 8px;
+      }
+
+      #features .features-intro {
+        padding: 80px 0;
+      }
+
+      .security-section {
+        padding: 80px 0;
+      }
+
+      .security-status {
+        width: fit-content;
+        max-width: 100%;
+        white-space: normal;
+      }
+
+      .security-item {
+        padding: 26px 24px;
+      }
+
+      .security-number {
+        margin-bottom: 22px;
+      }
+
+      .security-item h3 {
+        font-size: 19px;
+      }
+
+      .security-item p {
+        font-size: 14px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      html {
+        scroll-behavior: auto;
+      }
+
+      .chat-status,
+      .qr-art::before {
+        animation: none;
+      }
+
+      .connection-line {
+        stroke-dashoffset: 0 !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <header>
+
+      <a href="#" class="logo">
+        ALAROYA
+      </a>
+
+      <nav>
+        <a href="#about">О приложении</a>
+        <a href="#features">Возможности</a>
+        <a href="#security">Безопасность</a>
+        <a href="#how">Как работает</a>
+        <a href="#download">Скачать</a>
+      </nav>
+
+    </header>
+
+
+    <main>
+
+      <section class="hero">
+
+        <div class="eyebrow">
+          Alaroya
+        </div>
+
+        <h1>
+          Общайтесь<br>
+          без интернета.
+        </h1>
+
+        <p class="hero-text">
+          Alaroya позволяет смартфонам общаться напрямую,
+          создавая собственную сеть там, где обычного
+          подключения к интернету нет.
+        </p>
+
+        <a
+          class="button"
+          href="https://github.com/alaroya/alaroya/releases/download/1.1/Alaroya-1.1.apk"
+        >
+          Скачать Alaroya
+        </a>
+
+        <div class="download-note">
+          Версия 1.1 · Только для Android
+        </div>
+
+
+        <div class="network">
+
+          <div class="network-label">
+            ПРЯМОЕ СОЕДИНЕНИЕ УСТРОЙСТВ
+          </div>
+
+          <svg
+            class="connections"
+            aria-hidden="true"
+          >
+
+            <line
+              id="glow-left-right"
+              class="connection-glow"
+            />
+
+            <line
+              id="glow-left-bottom"
+              class="connection-glow"
+            />
+
+            <line
+              id="glow-right-bottom"
+              class="connection-glow"
+            />
+
+            <line
+              id="line-left-right"
+              class="connection-line"
+            />
+
+            <line
+              id="line-left-bottom"
+              class="connection-line"
+            />
+
+            <line
+              id="line-right-bottom"
+              class="connection-line"
+            />
+
+          </svg>
+
+
+          <div class="phone left" id="phone-left">
+            <div class="phone-screen"></div>
+            <div class="phone-screen small"></div>
+            <div class="phone-screen small two"></div>
+          </div>
+
+
+          <div class="phone right" id="phone-right">
+            <div class="phone-screen"></div>
+            <div class="phone-screen small"></div>
+            <div class="phone-screen small two"></div>
+          </div>
+
+
+          <div class="phone bottom" id="phone-bottom">
+            <div class="phone-screen"></div>
+            <div class="phone-screen small"></div>
+            <div class="phone-screen small two"></div>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <section class="content" id="about">
+
+        <div class="label">
+          О Alaroya
+        </div>
+
+        <h2>
+          Своя сеть.<br>
+          Своя связь.
+        </h2>
+
+        <p class="lead">
+          Alaroya создана для ситуаций, когда интернет
+          недоступен. Вместо подключения к удалённому
+          серверу устройства могут взаимодействовать
+          непосредственно друг с другом.
+        </p>
+
+      </section>
+
+
+      <section class="content" id="features">
+
+        <div class="features-intro">
+
+          <div class="label">
+            Возможности
+          </div>
+
+          <h2>
+            Всё необходимое<br>
+            для общения рядом.
+          </h2>
+
+        </div>
+
+
+        <div class="feature">
+
+          <div class="feature-text">
+
+            <h3>
+              Сообщения
+            </h3>
+
+            <p>
+              Общайтесь с людьми рядом, даже если
+              мобильная сеть и интернет недоступны.
+              Alaroya использует соединение между
+              устройствами.
+              <span class="green-text">
+                Передача сообщений — 2 000+ м, если между вами есть другие подключённые телефоны.
+              </span>
+            </p>
+
+          </div>
+
+
+          <div class="visual chat-visual">
+
+            <div class="chat-signal"></div>
+
+            <div class="chat-header">
+
+              <div class="chat-user">
+
+                <span class="chat-status"></span>
+
+                Alaroya
+
+              </div>
+
+            </div>
+
+
+            <div class="chat-message left">
+              Привет!
+            </div>
+
+
+            <div class="chat-message right">
+              Ты здесь?
+            </div>
+
+
+            <div class="chat-message left bottom">
+              Да, я тут
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="feature reverse">
+
+          <div class="feature-text">
+
+            <h3>
+              Обмен файлами
+            </h3>
+
+            <p>
+              Передавайте фотографии, видео и другие
+              файлы непосредственно между устройствами,
+              без загрузки в обычное облачное хранилище.
+              <span class="green-text">
+                Передача файлов — до 50 м.
+              </span>
+            </p>
+
+          </div>
+
+
+          <div class="visual">
+
+            <div class="file"></div>
+
+          </div>
+
+        </div>
+
+
+        <div class="feature">
+
+          <div class="feature-text">
+
+            <h3>
+              Простое подключение
+            </h3>
+
+            <p>
+              Для подключения нового человека можно
+              использовать QR-код прямо в приложении.
+              Без сложных настроек и длинных адресов.
+              <span class="green-text">
+                Подключение доступно на расстоянии до 10 м.
+              </span>
+            </p>
+
+          </div>
+
+
+          <div class="visual">
+
+            <div class="qr-frame">
+
+              <div class="qr-art">
+
+                <div class="qr-finder one"></div>
+                <div class="qr-finder two"></div>
+                <div class="qr-finder three"></div>
+
+                <div class="qr-corner one"></div>
+                <div class="qr-corner two"></div>
+                <div class="qr-corner three"></div>
+
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell bright"></div>
+
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell"></div>
+
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell"></div>
+
+                <div class="qr-cell"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell dim"></div>
+
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell bright"></div>
+
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell bright"></div>
+
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell"></div>
+
+                <div class="qr-cell"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell bright"></div>
+
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+
+                <div class="qr-cell"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell"></div>
+
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell bright"></div>
+                <div class="qr-cell"></div>
+                <div class="qr-cell dim"></div>
+                <div class="qr-cell bright"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <section class="security-section" id="security">
+
+        <div class="security-head">
+
+          <div>
+
+            <div class="label">
+              Безопасность
+            </div>
+
+            <h2>
+              Личные сообщения.<br>
+              <span class="green-text">Сквозное шифрование.</span>
+            </h2>
+
+          </div>
+
+          <div class="security-status">
+            E2EE активно
+          </div>
+
+        </div>
+
+
+        <div class="security-grid">
+
+          <div class="security-item">
+
+            <span class="security-number">
+              01 / ЗАЩИЩЁННОЕ СОЕДИНЕНИЕ
+            </span>
+
+            <h3>
+              Сквозное шифрование
+            </h3>
+
+            <p>
+              Сообщения шифруются прямо на устройствах.
+              Доступ к переписке есть только у участников.
+            </p>
+
+          </div>
+
+
+          <div class="security-item">
+
+            <span class="security-number">
+              02 / ЛОКАЛЬНОЕ ХРАНЕНИЕ
+            </span>
+
+            <h3>
+              Без облаков
+            </h3>
+
+            <p>
+              История общения хранится на устройствах
+              участников, без обычного облачного хранилища.
+            </p>
+
+          </div>
+
+
+          <div class="security-item">
+
+            <span class="security-number">
+              03 / ЗАЩИТА ОТ ВЗЛОМА
+            </span>
+
+            <h3>
+              Защита от вмешательства
+            </h3>
+
+            <p>
+              Приложение проверяет целостность своей среды
+              и блокирует доступ к данным при обнаружении вмешательства.
+            </p>
+
+          </div>
+
+
+          <div class="security-item">
+
+            <span class="security-number">
+              04 / БЕЗОПАСНОЕ ХРАНЕНИЕ
+            </span>
+
+            <h3>
+              Защищённое хранилище
+            </h3>
+
+            <p>
+              Данные приложения хранятся в защищённом виде
+              и защищены от взлома самого приложения.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <section class="content" id="how">
+
+        <div class="label">
+          Как это работает
+        </div>
+
+        <h2>
+          Телефоны рядом<br>
+          создают сеть.
+        </h2>
+
+        <p class="lead">
+          Устройства находят друг друга и устанавливают
+          соединение напрямую. Интернет для самой связи
+          между ними не нужен.
+        </p>
+
+      </section>
+
+
+      <section class="final" id="download">
+
+        <div class="eyebrow">
+          Alaroya
+        </div>
+
+        <h2>
+          Общайтесь<br>
+          где угодно.
+        </h2>
+
+        <p>
+          Установите Alaroya и попробуйте общение
+          без привычного подключения к интернету.
+        </p>
+
+        <a
+          class="button"
+          href="https://github.com/alaroya/alaroya/releases/download/1.1/Alaroya-1.1.apk"
+        >
+          Скачать Alaroya
+        </a>
+
+        <div class="download-note">
+          Версия 1.1 · Только для Android
+        </div>
+
+      </section>
+
+    </main>
+
+
+    <footer>
+
+      <div class="footer-logo">
+        ALAROYA
+      </div>
+
+      <div>
+        © 2026 · Общайтесь без интернета
+      </div>
+
+    </footer>
+
+  </div>
+
+
+  <script>
+
+    const connectionAnimation = {
+      offset: 0,
+      lastTime: 0,
+      speed: 24,
+      running: false
+    };
+
+
+    function updateConnections() {
+
+      const network =
+        document.querySelector(".network");
+
+      const phones = {
+
+        left:
+          document.querySelector("#phone-left"),
+
+        right:
+          document.querySelector("#phone-right"),
+
+        bottom:
+          document.querySelector("#phone-bottom")
+
+      };
+
+      const svg =
+        document.querySelector(".connections");
+
+      if (
+        !network ||
+        !svg ||
+        !phones.left ||
+        !phones.right ||
+        !phones.bottom
+      ) {
+        return;
+      }
+
+
+      const networkRect =
+        network.getBoundingClientRect();
+
+
+      svg.setAttribute(
+        "viewBox",
+        `0 0 ${networkRect.width} ${networkRect.height}`
+      );
+
+
+      function center(element) {
+
+        const rect =
+          element.getBoundingClientRect();
+
+        return {
+
+          x:
+            rect.left -
+            networkRect.left +
+            rect.width / 2,
+
+          y:
+            rect.top -
+            networkRect.top +
+            rect.height / 2
+
+        };
+
+      }
+
+
+      function edgePoint(
+        from,
+        to,
+        element
+      ) {
+
+        const rect =
+          element.getBoundingClientRect();
+
+        const cx =
+          rect.left -
+          networkRect.left +
+          rect.width / 2;
+
+        const cy =
+          rect.top -
+          networkRect.top +
+          rect.height / 2;
+
+        const dx =
+          to.x - from.x;
+
+        const dy =
+          to.y - from.y;
+
+        const halfW =
+          rect.width / 2;
+
+        const halfH =
+          rect.height / 2;
+
+        const scaleX =
+          Math.abs(dx) > 0
+            ? halfW / Math.abs(dx)
+            : Infinity;
+
+        const scaleY =
+          Math.abs(dy) > 0
+            ? halfH / Math.abs(dy)
+            : Infinity;
+
+        const scale =
+          Math.min(
+            scaleX,
+            scaleY
+          );
+
+        return {
+
+          x:
+            cx + dx * scale,
+
+          y:
+            cy + dy * scale
+
+        };
+
+      }
+
+
+      function connect(
+        name,
+        a,
+        b
+      ) {
+
+        const pointA =
+          center(a);
+
+        const pointB =
+          center(b);
+
+        const start =
+          edgePoint(
+            pointA,
+            pointB,
+            a
+          );
+
+        const end =
+          edgePoint(
+            pointB,
+            pointA,
+            b
+          );
+
+
+        const line =
+          document.querySelector(
+            "#line-" + name
+          );
+
+        const glow =
+          document.querySelector(
+            "#glow-" + name
+          );
+
+
+        [line, glow].forEach(
+          element => {
+
+            if (!element) {
+              return;
+            }
+
+            element.setAttribute(
+              "x1",
+              start.x
+            );
+
+            element.setAttribute(
+              "y1",
+              start.y
+            );
+
+            element.setAttribute(
+              "x2",
+              end.x
+            );
+
+            element.setAttribute(
+              "y2",
+              end.y
+            );
+
+          }
+        );
+
+      }
+
+
+      connect(
+        "left-right",
+        phones.left,
+        phones.right
+      );
+
+      connect(
+        "left-bottom",
+        phones.left,
+        phones.bottom
+      );
+
+      connect(
+        "right-bottom",
+        phones.right,
+        phones.bottom
+      );
+
+    }
+
+
+    function animateConnections(time) {
+
+      if (!connectionAnimation.lastTime) {
+        connectionAnimation.lastTime = time;
+      }
+
+
+      const delta =
+        Math.min(
+          time -
+          connectionAnimation.lastTime,
+
+          50
+        );
+
+
+      connectionAnimation.lastTime = time;
+
+
+      connectionAnimation.offset +=
+        delta *
+        connectionAnimation.speed /
+        1000;
+
+
+      if (
+        connectionAnimation.offset >= 16
+      ) {
+
+        connectionAnimation.offset -= 16;
+
+      }
+
+
+      const lines =
+        document.querySelectorAll(
+          ".connection-line"
+        );
+
+
+      lines.forEach(
+        line => {
+
+          line.style.strokeDashoffset =
+            -connectionAnimation.offset;
+
+        }
+      );
+
+
+      if (
+        !document.hidden
+      ) {
+
+        requestAnimationFrame(
+          animateConnections
+        );
+
+      } else {
+
+        connectionAnimation.lastTime =
+          performance.now();
+
+      }
+
+    }
+
+
+    function startConnectionAnimation() {
+
+      if (
+        connectionAnimation.running
+      ) {
+        return;
+      }
+
+      connectionAnimation.running = true;
+
+      requestAnimationFrame(
+        animateConnections
+      );
+
+    }
+
+
+    document.addEventListener(
+      "visibilitychange",
+      () => {
+
+        if (
+          !document.hidden
+        ) {
+
+          connectionAnimation.lastTime =
+            performance.now();
+
+          requestAnimationFrame(
+            animateConnections
+          );
+
+        }
+
+      }
+    );
+
+
+    window.addEventListener(
+      "load",
+      () => {
+
+        updateConnections();
+
+        startConnectionAnimation();
+
+      }
+    );
+
+
+    let resizeTimer;
+
+    window.addEventListener(
+      "resize",
+      () => {
+
+        clearTimeout(
+          resizeTimer
+        );
+
+        resizeTimer =
+          setTimeout(
+            updateConnections,
+            80
+          );
+
+      }
+    );
+
+  </script>
+
+</body>
+</html>
